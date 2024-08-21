@@ -1,0 +1,65 @@
+{% extends 'med/base.html' %}
+{% load static %}
+
+{% block content %}
+
+
+<div class="row">
+    <div class="col-16">
+        <div class="card">
+            <div class="card-header">
+                <h3 class="mb-0">
+                    <a class="text-dark" style="font-size: 38px;">Центр медицинской диагностики Рога и Копыта</a>
+                    <br>
+                </h3>
+                <hr class="featurette-divider">
+                <div class="mb-1 text">Медицинская диагностика – то, что необходимо каждому из нас.
+                    Вы будете очень рады обнаружить зачатки болезни и не допустить их развития.
+                    Позаботьтесь о себе сейчас, что бы лишить себя проблем в будущем!
+                </div>
+                <hr class="featurette-divider">
+                <div class="mb-1 text-active">Центр медицинской диагностики Рога и Копыта, предлагает множество видов
+                    диагностики.
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<br>
+<br>
+
+<main role="main" class="container">
+    <h3 class="mb-0">
+        <a class="text-dark" style="font-size: 26px;"></a>
+    </h3>
+    <div class="container">
+        <div class="col-md-8 blog-main" style="font-size: 26px;">
+            {% for object in object_list %}
+            <p><a href="{% url 'med:speciality_detail' object.pk %}"> {{object.title}}
+            </a></p>
+            {% endfor %}
+        </div>
+<br>
+<br>
+<br>
+<br>
+<div class="row">
+    <aside class="col-md-4 blog-sidebar">
+        <div class="p-3 mb-3 bg-light rounded">
+            <h4 class="font-italic">О нас:</h4>
+            <p class="mb-12"> Рога и Копыта. Все лучшее для Вас! </p>
+        </div>
+        <hr class="featurette-divider">
+        <div class="p-3">
+            <h4 class="font-italic">Мы в соцсетях</h4>
+            <ol class="list-unstyled">
+                <p><a href="https://github.com/Yambur/">GitHub</a></p>
+            </ol>
+        </div>
+    </aside><!-- /.blog-sidebar -->
+</div>
+    </div><!-- /.row -->
+
+</main><!-- /.container -->
+
+{% endblock %}

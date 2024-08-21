@@ -1,0 +1,100 @@
+{% load static %}
+{% load my_tags %}
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Магазин электроники</title>
+    <link href="{% static 'css/bootstrap.min.css' %}" rel="stylesheet">
+</head>
+<body>
+
+<header data-bs-theme="dark">
+  <div class="collapse text-bg-dark" id="navbarHeader">
+    <div class="container">
+      <div class="row">
+        <div class="col-sm-8 col-md-7 py-4">
+          <p class="text-body">Добро пожаловать на наш сайт! Мы предлагаем широкий выбор игр для игровых консолей, включая классические хиты и новинки индустрии. У нас вы найдёте всё, что нужно для увлекательного времяпрепровождения.</p>
+        </div>
+        <div class="col-sm-4 offset-md-1 py-4">
+          <h4>Меню</h4>
+          <ul class="list-unstyled">
+            <li><a href="/" class="text-white">Главная</a></li>
+            <li><a href="/contacts/" class="text-white">Контакты</a></li>
+              {% if user.is_authenticated %}
+              <li><a href="{% url 'users:logout' %}" class="text-white">Выйти</a></li>
+              <li><a href="{% url 'users:profile' %}" class="text-white">Профиль</a></li>
+              {% else %}
+              <li><a href="{% url 'users:login' %}" class="text-white">Войти</a></li>
+              <li><a href="{% url 'users:create' %}" class="text-white">Регистрация</a></li>
+              {% endif %}
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="navbar navbar-dark bg-dark shadow-sm">
+    <div class="container">
+      <a href="{% url 'catalog:product_list' %}" class="navbar-brand d-flex align-items-center">
+        <strong>GamePro</strong>
+      </a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarHeader" aria-controls="navbarHeader" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span> {{user.email}}
+      </button>
+    </div>
+  </div>
+</header>
+
+<div class="pricing-header px-3 py-3 pt-md-5 pb-md-4 mx-auto text-center">
+    <h1 class="display-4">МАЙСКАЯ ЭКОНОМИЯ</h1>
+    <p class="lead">Пусть май будет полон игр! Получите огромную майскую скидку на отличные игры.</p>
+    <a class="text-muted" href="{% url 'bloging:list' %}">Отзывы</a> <a class="text-muted" href="{% url 'bloging:create' %}">Оставить отзыв</a>
+    <p></p>
+    {% if user.is_authenticated %}
+    <a class="text-muted" href="{% url 'catalog:product_create' %}">Добавить товар</a>
+    {% endif %}
+
+</div>
+
+<div class="container">
+
+
+    {% block content %}
+    {% endblock %}
+
+    <footer class="pt-4 my-md-5 pt-md-5 border-top">
+        <div class="row">
+            <div class="col-12 col-md">
+                GamePro
+                <small class="d-block mb-3 text-muted">&copy; 2020 - {% now 'Y' %}</small>
+            </div>
+            <div class="col-6 col-md">
+                <h5>Категории</h5>
+                <ul class="list-unstyled text-small">
+                    <li><a class="text-muted" href="#">Рассылки</a></li>
+                    <li><a class="text-muted" href="#">Телеграм боты</a></li>
+                    <li><a class="text-muted" href="#">Полезные утилиты</a></li>
+                    <li><a class="text-muted" href="#">Веб-приложения</a></li>
+                    <li><a class="text-muted" href="#">Микросервисы</a></li>
+                </ul>
+            </div>
+            <div class="col-6 col-md">
+                <h5>Дополнительно</h5>
+                <ul class="list-unstyled text-small">
+                    <li><a class="text-muted" href="#">Мы пишем</a></li>
+                </ul>
+            </div>
+            <div class="col-6 col-md">
+                <h5>О нас</h5>
+                <ul class="list-unstyled text-small">
+                    <li><a class="text-muted" href="/contacts/">Контакты</a></li>
+                </ul>
+            </div>
+        </div>
+    </footer>
+</div>
+
+<script src="{% static 'js/bootstrap.bundle.min.js' %}"></script>
+</body>
+</html>
