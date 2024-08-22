@@ -39,23 +39,54 @@
 <br>
 <br>
 <br>
-<div class="row">
-    <aside class="col-md-4 blog-sidebar">
-        <div class="p-3 mb-3 bg-light rounded">
-            <h4 class="font-italic">О нас:</h4>
-            <p class="mb-12"> Рога и Копыта. Все лучшее для Вас! </p>
-        </div>
-        <hr class="featurette-divider">
-        <div class="p-3">
-            <h4 class="font-italic">Мы в соцсетях</h4>
-            <ol class="list-unstyled">
-                <p><a href="https://github.com/Yambur/">GitHub</a></p>
-            </ol>
-        </div>
-    </aside><!-- /.blog-sidebar -->
-</div>
-    </div><!-- /.row -->
 
+    </div><!-- /.row -->
+</div>
+        <div class="row text-start">
+        <div class="col-lg-3 col-md-6 col-sm-6 offset-md-3">
+            <div class="card mb-4 box-shadow">
+                <div class="card-body">
+                    <table class="table table-striped">
+
+                            <td class="w-25">Телефон:</td>
+                            <td>+7 777 777 77 77</td>
+                        </tr>
+                        <tr>
+                            <td class="w-25">Email:</td>
+                            <td>Med@X.ru</td>
+                        </tr>
+                        <h3>Контакты</h3>
+                    </table>
+                    <h3>Подробнее</h3>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-2 col-md-6 col-sm-12 offset-md-1">
+            <div class="card mb-4 box-shadow">
+                <div class="card-header">
+                    <h4 class="my-0 font-weight-normal">Свяжитесь с нами</h4>
+                </div>
+                <div class="card-body">
+                    <form method="post" action="" class="form-floating">
+                        {% csrf_token %}
+                        <div class="mb-3">
+                            <label for="name">Имя</label>
+                            <input type="text" name="name" class="form-control" id="name" placeholder="Ваше имя" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="phone">Телефон</label>
+                            <input type="text" name="phone" class="form-control" id="phone" placeholder="Контактный телефон" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="message">Сообщение</label>
+                            <textarea type="text" name="message" class="form-control" id="message" placeholder="Ваше сообщение" required></textarea>
+                        </div>
+                        <button type="submit" class="btn btn-lg btn-block btn-outline-dark">Отправить</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
 </main><!-- /.container -->
 
 {% endblock %}
