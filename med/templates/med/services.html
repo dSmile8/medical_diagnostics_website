@@ -1,0 +1,32 @@
+{% extends 'med/base.html' %}
+{% load static %}
+
+
+
+
+
+{% block content %}
+<div class="container px-4 px-lg-5 my-5">
+    <div class="row gx-4 gx-lg-5 align-items-center">
+        <h1 class="display-5 fw-bolder">{{ services.title }} - {{ services.price }} Руб.</h1>
+    </div>
+
+    {% if description %}
+
+    <p class="lead">{{ services.description }}</p>
+    {% endif %}
+</div>
+<h2>Наши специалисты:</h2>
+<div class="d-flex">
+
+
+    {% for d in doctor %}
+    <div class="col-lg-4">
+        <hr class="featurette-divider">
+        <h4>{{ d.first_name}} {{ d.last_name}}</h4>
+    </div>
+
+    {% endfor %}
+</div>
+
+{% endblock %}
