@@ -1,15 +1,17 @@
 {% extends 'med/base.html' %}
 {% load static %}
-
+{% load i18n static djeymtags %}
 {% block content %}
 <div class="row text-start">
-        <div class="col-lg-9 col-md-6 col-sm-12">
+    <div class="col-lg-4 col-md-12 col-sm-12 " style="position:relative;overflow:hidden;"><a href="https://yandex.ru/maps/org/krasnaya_ploshchad/10661349235/?utm_medium=mapframe&utm_source=maps" style="color:#eee;font-size:12px;position:absolute;top:0px;">Красная площадь</a><a href="https://yandex.ru/maps/213/moscow/category/landmark_attraction/89683368508/?utm_medium=mapframe&utm_source=maps" style="color:#eee;font-size:12px;position:absolute;top:14px;">Достопримечательность в Москве</a><iframe src="https://yandex.ru/map-widget/v1/?indoorLevel=1&ll=37.620941%2C55.753575&mode=poi&poi%5Bpoint%5D=37.621601%2C55.753459&poi%5Buri%5D=ymapsbm1%3A%2F%2Forg%3Foid%3D10661349235&z=17.77" width="400" height="400" frameborder="1" allowfullscreen="true" style="position:relative;"></iframe></div>
+        <div class="col-lg-5 col-md-12 col-sm-12 offset-md-0">
             <div class="card mb-4 box-shadow">
                 <div class="card-body">
                     <table class="table table-striped">
                         <tr>
                             <td class="w-25">Страна</td>
                             <td>Россия</td>
+                            <td></td>
                         </tr>
                         <tr>
                             <td class="w-25">Город</td>
@@ -18,6 +20,7 @@
                         <tr>
                             <td class="w-25">ИНН</td>
                             <td>91-1144442</td>
+                            <td></td>
                         </tr>
                         <tr>
                             <td class="w-25">Адрес</td>
@@ -26,6 +29,7 @@
                         <tr>
                             <td class="w-25">Телефон:</td>
                             <td>+7 777 777 77 77</td>
+                            <td></td>
                         </tr>
                         <tr>
                             <td class="w-25">Факс:</td>
@@ -34,11 +38,14 @@
                         <tr>
                             <td class="w-25">Email</td>
                             <td>Med@X.ru</td>
+                            <td></td>
                         </tr>
 
                         <tr>
                             <td class="w-25">Telegram</td>
                             <td>--ссылка на телеграм--</td>
+                            <td class="w-25"><a class="text-muted" href="{% url 'med:index' %}">Назад</a></td>
+
                         </tr>
                     </table>
 
@@ -70,4 +77,6 @@
                 </div>
             </div>
         </div>
+</div>
+
 {% endblock %}

@@ -1,4 +1,6 @@
+from django.shortcuts import HttpResponseRedirect
 from django.shortcuts import render
+from django.urls import reverse
 from django.views.generic import ListView, DetailView, TemplateView
 
 from med.models import Services, Doctor
@@ -18,6 +20,17 @@ class ServicesListView(ListView):
         queryset = super().get_queryset().order_by('title')
         return queryset
 
+    def post(self, request, *args, **kwargs):
+        name = request.POST.get('name')
+        phone = request.POST.get('phone')
+        message = request.POST.get('message')
+        print(f'{name} / {phone} / {message}')
+        data = f'Name: {name}. Phone: {phone}. Message: {message}\n'
+        with open('user_data.txt', 'a', encoding='UTF-8') as f:
+            f.write(data)
+        return HttpResponseRedirect(reverse('med:index'))
+
+
 class DoctorsListView(ListView):
     """Показ списка врачей"""
     model = Doctor
@@ -30,6 +43,8 @@ class DoctorsListView(ListView):
     def get_queryset(self):
         queryset = super().get_queryset()
         return queryset
+
+
 class ServicesDetailView(DetailView):
     """"Детальная информация об услуге"""
     model = Services
@@ -53,3 +68,13 @@ class ContactsTemplateView(TemplateView):
         context = super().get_context_data(**kwargs)
         context['title'] = 'Контакты'
         return context
+
+    def post(self, request, *args, **kwargs):
+        name = request.POST.get('name')
+        phone = request.POST.get('phone')
+        message = request.POST.get('message')
+        print(f'{name} / {phone} / {message}')
+        data = f'Name: {name}. Phone: {phone}. Message: {message}\n'
+        with open('user_data.txt', 'a', encoding='UTF-8') as f:
+            f.write(data)
+        return HttpResponseRedirect(reverse('med:contacts'))

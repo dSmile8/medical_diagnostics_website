@@ -1,7 +1,10 @@
 {% extends 'med/base.html' %}
+{% load my_tags %}
 {% load static %}
 
+
 {% block content %}
+
 
 <center><h3>История компании</h3></center>
 Наша компания была основана в 2000 году с целью предоставления высококачественных услуг в области медицинской диагностики. Мы стремимся помочь людям сохранить здоровье и вовремя выявить возможные проблемы.
@@ -31,14 +34,16 @@
 
 <div class="container">
     <div class="row text-center">
-        {% for product in object_list %}
+        {% for doc in object_list %}
         <div class="col-3">
             <div class="card mb-4 box-shadow border-dark h-100">
                 <div class="card text-bg-dark border-dark mb-2 h-100" style="max-width: 30rem;">
-                    <h4 class="my-0 font-weight-normal">{{ product.first_name}}</h4>
-                    <h1 class="card-title pricing-card-title">{{ product.last_name }}</h1>
+                    <h4 class="my-0 font-weight-normal">{{ doc.first_name}}</h4>
+                    <h1 class="card-title pricing-card-title">{{ doc.last_name }}</h1>
                 </div>
                 <div class="card-body">
+                    <img src="{{ doc.photo | media_filter }}" width="270" height="300">
+
 
                 </div>
             </div>

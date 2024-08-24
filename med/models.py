@@ -73,3 +73,6 @@ class Feedback(models.Model):
     class Meta:
         verbose_name = 'отзыв'
         verbose_name_plural = 'отзывы'
+
+
+

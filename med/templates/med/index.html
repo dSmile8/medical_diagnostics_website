@@ -1,11 +1,14 @@
 {% extends 'med/base.html' %}
 {% load static %}
-
+{% load my_tags %}
 {% block content %}
 <style>
       strong {
         color: red; /* задаёт красный цвет текста */
       }
+       .black-link {
+         color: black;
+}
 </style>
 
 
@@ -23,46 +26,45 @@
 </div>
 <br>
 <br>
-
-<main role="main" class="container">
-    <h3 class="mb-0">
-        <a class="text-dark" style="font-size: 26px;"></a>
-    </h3>
-    <div class="container">
-        <div class="col-md-8 blog-main" style="font-size: 26px;">
+<div class="row text-start">
+<div class="col-lg-9 col-md-12 col-sm-12 offset-md-0" >
+        <div id="carouselExampleCaptions" class="carousel slide" data-bs-theme="dark">
+            <div class="carousel-indicators">
+                <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
+                <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="1" aria-label="Slide 2"></button>
+                <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="2" aria-label="Slide 3"></button>
+            </div>
+            <div class="carousel-inner">
             {% for object in object_list %}
-            <p><a href="{% url 'med:speciality_detail' object.pk %}"> {{object.title}}
-            </a></p>
+            <div class="carousel-item active">
+                <img src="{{ object.image | media_filter }}" class="d-block w-100" alt="..." width="200" height="390">
+                <div class="carousel-caption d-none d-md-block">
+                    <h2><a href="{% url 'med:speciality_detail' object.pk %}" class="black-link"> {{object.title}}
+                    </a></h2>
+
+                </div>
+            </div>
             {% endfor %}
+
+  <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide="prev">
+    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+    <span class="visually-hidden">Предыдущий</span>
+  </button>
+  <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide="next">
+    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+    <span class="visually-hidden">Следующий</span>
+  </button>
+            </div>
         </div>
+
 <br>
 <br>
 <br>
 <br>
 
     </div><!-- /.row -->
-</div>
-        <div class="row text-start">
-        <div class="col-lg-3 col-md-6 col-sm-6 offset-md-3">
-            <div class="card mb-4 box-shadow">
-                <div class="card-body">
-                    <table class="table table-striped">
-
-                            <td class="w-25">Телефон:</td>
-                            <td>+7 777 777 77 77</td>
-                        </tr>
-                        <tr>
-                            <td class="w-25">Email:</td>
-                            <td>Med@X.ru</td>
-                        </tr>
-                        <h3>Контакты</h3>
-                    </table>
-                    <h3>Подробнее</h3>
-                </div>
-            </div>
-        </div>
-        <div class="col-lg-2 col-md-6 col-sm-12 offset-md-1">
-            <div class="card mb-4 box-shadow">
+    <div class="col-lg-3 col-md-6 col-sm-12">
+            <div class="card mb-4 box-shadow" style="border-color: black;">
                 <div class="card-header">
                     <h4 class="my-0 font-weight-normal">Свяжитесь с нами</h4>
                 </div>
@@ -86,7 +88,7 @@
                 </div>
             </div>
         </div>
-    </div>
+</div>
 </main><!-- /.container -->
 
 {% endblock %}
