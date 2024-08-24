@@ -2,6 +2,7 @@ import random
 import secrets
 import string
 
+from django.contrib.auth.mixins import UserPassesTestMixin
 from django.core.mail import send_mail
 from django.shortcuts import get_object_or_404, redirect, render
 from django.urls import reverse_lazy, reverse
@@ -42,11 +43,19 @@ def email_verification(request, token):
     return redirect(reverse('users:login'))
 
 
-class ProfileView(UpdateView):
+class ProfileView(UserPassesTestMixin, UpdateView):
     model = User
     form_class = ProfileForm
     success_url = reverse_lazy('users:profile')
     template_name = 'users/profile.html'
+
+    def test_func(self):
+        if self.get_object().is_doctor and self.request.user.is_superuser:
+            return True
+        if not self.get_object().is_doctor and self.request.user == self.get_object():
+            return True
+        return self.request.user.is_superuser
+
 
     def get_object(self, queryset=None):
         return self.request.user
@@ -74,3 +83,31 @@ def reset_password(request):
         return render(request, "users/reset_password.html", context)
     else:
         return render(request, "users/reset_password.html")
+
+
+class DoctorCreateView(UserPassesTestMixin, CreateView):
+    model = User
+    form_class = UserCreateForm
+    success_url = reverse_lazy('users:login')
+
+    def form_valid(self, form):
+        form.instance.is_doctor = True
+        form.instance.is_staff = True
+        return super().form_valid(form)
+
+    def test_func(self):
+        return self.request.user.is_superuser
+
+
+class ProfileDeleteView(UserPassesTestMixin, UpdateView):
+    model = User
+    form_class = ProfileForm
+    success_url = reverse_lazy('users:profile')
+    template_name = 'users/profile.html'
+
+    def test_func(self):
+        if self.get_object().is_doctor and self.request.user.is_superuser:
+            return True
+        if not self.get_object().is_doctor and self.request.user == self.get_object():
+            return True
+        return self.request.user.is_superuser

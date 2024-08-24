@@ -89,6 +89,18 @@ class AppointmentCreateView(CreateView):
     form_class = AppointmentForm
     success_url = reverse_lazy('med:index')
 
+    def form_valid(self, form):
+        form.instance.user = self.request.user
+
+        return super().form_valid(form)
+
+
+
+
+
+
+
+
 
 class AppointmentUserListView(ListView):
     """"Показ списка забронированных пользователем записей на диагностику"""
