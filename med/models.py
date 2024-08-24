@@ -40,6 +40,7 @@ class Appointment(models.Model):
                                  verbose_name='диагностика')
     doctor = models.ForeignKey(Doctor, on_delete=models.CASCADE, related_name='записи', verbose_name='врач')
     date = models.DateTimeField(verbose_name='дата и время приема')
+    result = models.TextField(verbose_name='результаты обследования', **NULLABLE)
 
     def __str__(self):
         return f'{self.user}: {self.date} {self.services}, {self.doctor}'
