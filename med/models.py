@@ -57,23 +57,7 @@ class Appointment(models.Model):
             raise ValidationError('Не допускается создавать записи в прошедшем времени')
 
 
-class Feedback(models.Model):
-    name = models.CharField(max_length=100, verbose_name='имя')
-    email = models.EmailField(unique=False, verbose_name='e-mail')
-    text = models.TextField(verbose_name='текст')
-    date = models.DateTimeField(verbose_name='дата и время отзыва')
 
-    @classmethod
-    def create(cls, name, email, text, date):
-        feedback = cls(name=name, email=email, text=text, date=date)
-        return feedback
-
-    def __str__(self):
-        return f'{self.name}: {self.email}'
-
-    class Meta:
-        verbose_name = 'отзыв'
-        verbose_name_plural = 'отзывы'
 
 
 
