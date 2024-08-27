@@ -5,13 +5,17 @@ NULLABLE = {'blank': True, 'null': True}
 
 
 class User(AbstractUser):
+    """User model"""
     username = None
     email = models.EmailField(unique=True, verbose_name='Почта')
-    first_name = models.CharField(max_length=20, verbose_name='Имя', **NULLABLE)
-    last_name = models.CharField(max_length=20, verbose_name='Фамилия', **NULLABLE)
+    first_name = models.CharField(max_length=20, verbose_name='Имя')
+    last_name = models.CharField(max_length=20, verbose_name='Фамилия')
     phone = models.CharField(max_length=35, verbose_name='Телефон', **NULLABLE)
     avatar = models.ImageField(upload_to='users/', verbose_name='Аватар', **NULLABLE)
     token = models.CharField(max_length=100, verbose_name='Токен', **NULLABLE)
+    is_doctor = models.BooleanField(default=False)
+
+    services = models.ManyToManyField('med.Services', verbose_name='услуги', related_name='services', **NULLABLE)
 
     USERNAME_FIELD = "email"
     REQUIRED_FIELDS = []
@@ -20,6 +24,5 @@ class User(AbstractUser):
         return f'{self.first_name} {self.last_name}'
 
     class Meta:
-        verbose_name = 'пациент'
-        verbose_name_plural = 'пациенты'
-
+        verbose_name = 'User'
+        verbose_name_plural = 'Users'

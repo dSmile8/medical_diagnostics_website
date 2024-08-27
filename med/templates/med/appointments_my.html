@@ -23,11 +23,11 @@
                 {% for object in object_list %}
                 <div class="card mb-4 box-shadow">
                     <div class="card-header">
-                        <h3 class="my-0 font-weight-normal">{{ object.diagnostic.title}}</h3>
+                        <h3 class="my-0 font-weight-normal">{{ object.services.title }}</h3>
                     </div>
                     <div class="card-body">
                         <ul class="list-unstyled mt-3 mb-4">
-                            <h4>Стоимость: {{ object.diagnostic.price}} руб.</h4>
+                            <h4>Стоимость: {{ object.services.price }} руб.</h4>
                             <h4>Врач: {{ object.doctor}}</h4>
                             <h4>Дата и время: {{ object.date }}</h4>
                             {% if object.result %}

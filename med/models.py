@@ -1,5 +1,5 @@
 from django.db import models
-from users.models import User
+
 from django.core.exceptions import ValidationError
 from django.utils import timezone
 
@@ -7,38 +7,48 @@ NULLABLE = {'blank': True, 'null': True}
 
 
 class Services(models.Model):
+    """
+    This class represents a service offered by a medical service system.
+
+    Attributes:
+    title: The title or name of the service.
+    description: A detailed description of the service.
+    price: The cost of the service.
+    image: An image representing the service.
     title = models.CharField(max_length=100, verbose_name='наименование')
     description = models.TextField(verbose_name='описание', **NULLABLE)
     price = models.PositiveIntegerField(verbose_name='стоимость')
     image = models.ImageField(upload_to='image/', verbose_name='иконка', **NULLABLE)
+    """
 
     def __str__(self):
-        return f'{self.title}: {self.price}'
+        return f'{self.title}'
 
     class Meta:
         verbose_name = 'услуга'
         verbose_name_plural = 'услуги'
 
 
-class Doctor(models.Model):
-    first_name = models.CharField(max_length=30, verbose_name='Имя')
-    last_name = models.CharField(max_length=30, verbose_name='Фамилия')
-    photo = models.ImageField(upload_to='doc_photo/', verbose_name='Фото', **NULLABLE)
-    services = models.ForeignKey(Services, on_delete=models.CASCADE, verbose_name='Услуги', **NULLABLE)
-
-    def __str__(self):
-        return f'{self.first_name} {self.last_name}'
-
-    class Meta:
-        verbose_name = 'доктор'
-        verbose_name_plural = 'доктора'
-
-
 class Appointment(models.Model):
-    user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='записи', verbose_name='пациент', **NULLABLE)
-    services = models.ForeignKey(Services, on_delete=models.CASCADE, related_name='записи',
-                                 verbose_name='диагностика')
-    doctor = models.ForeignKey(Doctor, on_delete=models.CASCADE, related_name='записи', verbose_name='врач')
+    """
+    This class represents an appointment record in a medical service system.
+
+    Attributes:
+    user: The patient who made the appointment.
+    services: The diagnostic service for which the appointment is made.
+    doctor: The doctor assigned to the appointment.
+    date: The date and time of the appointment.
+    result: The results of the diagnostic examination.
+
+    Methods:
+    clean_fields: Validates that the appointment date is not in the past.
+    """
+
+    user = models.ForeignKey('users.User', on_delete=models.CASCADE, related_name='записи', verbose_name='пациент',
+                             **NULLABLE)
+    services = models.ForeignKey('Services', on_delete=models.CASCADE, related_name='записи',
+                                 verbose_name='диагностика', **NULLABLE)
+    doctor = models.ForeignKey('users.User', on_delete=models.CASCADE, related_name='user', verbose_name='врач')
     date = models.DateTimeField(verbose_name='дата и время приема')
     result = models.TextField(verbose_name='результаты обследования', **NULLABLE)
 
@@ -50,30 +60,9 @@ class Appointment(models.Model):
         verbose_name_plural = 'записи на диагностику'
 
     def clean_fields(self, exclude=None):
+
         super().clean_fields(exclude=exclude)
 
         now = timezone.now()
         if self.date < now:
             raise ValidationError('Не допускается создавать записи в прошедшем времени')
-
-
-class Feedback(models.Model):
-    name = models.CharField(max_length=100, verbose_name='имя')
-    email = models.EmailField(unique=False, verbose_name='e-mail')
-    text = models.TextField(verbose_name='текст')
-    date = models.DateTimeField(verbose_name='дата и время отзыва')
-
-    @classmethod
-    def create(cls, name, email, text, date):
-        feedback = cls(name=name, email=email, text=text, date=date)
-        return feedback
-
-    def __str__(self):
-        return f'{self.name}: {self.email}'
-
-    class Meta:
-        verbose_name = 'отзыв'
-        verbose_name_plural = 'отзывы'
-
-
-

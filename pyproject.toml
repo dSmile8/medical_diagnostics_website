@@ -8,10 +8,14 @@ packages = [{include = "medical_diagnostics_website"}]
 
 [tool.poetry.dependencies]
 python = "^3.11"
-django = "5.0"
 pillow = "^10.4.0"
 psycopg2-binary = "^2.9.9"
 python-dotenv = "^1.0.1"
+django = "4.2"
+getenv = "^0.2.0"
+ipython = "^8.26.0"
+coverage = "^7.6.1"
+flake8 = "^7.1.1"
 
 
 [build-system]
