@@ -29,11 +29,7 @@
 <div class="row text-start">
 <div class="col-lg-9 col-md-12 col-sm-12 offset-md-0" >
         <div id="carouselExampleCaptions" class="carousel slide" data-bs-theme="dark">
-            <div class="carousel-indicators">
-                <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
-                <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="1" aria-label="Slide 2"></button>
-                <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="2" aria-label="Slide 3"></button>
-            </div>
+
             <div class="carousel-inner">
             {% for object in object_list %}
             <div class="carousel-item active">
@@ -41,6 +37,8 @@
                 <div class="carousel-caption d-none d-md-block">
                     <h2><a href="{% url 'med:speciality_detail' object.pk %}" class="black-link"> {{object.title}}
                     </a></h2>
+                    <h6>{{object.description}}
+                    </h6>
 
                 </div>
             </div>

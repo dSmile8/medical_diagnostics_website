@@ -7,7 +7,7 @@ from django.core.mail import send_mail
 from django.shortcuts import get_object_or_404, redirect, render
 from django.urls import reverse_lazy, reverse
 
-from django.views.generic import CreateView, UpdateView
+from django.views.generic import CreateView, UpdateView, ListView
 
 from config.settings import EMAIL_HOST_USER
 from users.forms import UserCreateForm, ProfileForm
@@ -50,12 +50,14 @@ class ProfileView(UserPassesTestMixin, UpdateView):
     template_name = 'users/profile.html'
 
     def test_func(self):
-        if self.get_object().is_doctor and self.request.user.is_superuser:
-            return True
-        if not self.get_object().is_doctor and self.request.user == self.get_object():
-            return True
-        return self.request.user.is_superuser
+        # if self.get_object().is_doctor and self.request.user.is_superuser:
+        #     return True
+        # if not self.get_object().is_doctor and self.request.user == self.get_object():
+        #     return True
+        # return self.request.user.is_superuser
 
+        if self.request.user == self.get_object() or self.request.user.is_superuser:
+            return True
 
     def get_object(self, queryset=None):
         return self.request.user
@@ -106,8 +108,19 @@ class ProfileDeleteView(UserPassesTestMixin, UpdateView):
     template_name = 'users/profile.html'
 
     def test_func(self):
-        if self.get_object().is_doctor and self.request.user.is_superuser:
+        # if self.get_object().is_doctor or self.request.user.is_superuser:
+        #     return True
+        # if not self.get_object().is_doctor and self.request.user == self.get_object():
+        #     return True
+        # return self.request.user.is_superuser
+
+        if self.request.user == self.get_object() or self.request.user.is_superuser:
             return True
-        if not self.get_object().is_doctor and self.request.user == self.get_object():
-            return True
-        return self.request.user.is_superuser
+
+
+class UsersListView(ListView):
+    model = User
+    template_name = 'med/about.html'
+
+    def get_queryset(self):
+        return User.objects.filter(is_doctor=True)

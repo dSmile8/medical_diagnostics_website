@@ -68,7 +68,7 @@ WSGI_APPLICATION = "config.wsgi.application"
 DATABASES = {
     "default": {
         "ENGINE": "django.db.backends.postgresql",
-        "NAME": "medsite",
+        "NAME": "med4",
         "USER": "postgres",
         "PASSWORD": "asg6515ZX"
     }
