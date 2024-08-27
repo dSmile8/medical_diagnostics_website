@@ -1,5 +1,5 @@
 from django.contrib.auth.forms import UserCreationForm, UserChangeForm
-from django.forms import ModelForm, forms, BooleanField
+from django.forms import forms, BooleanField
 from django import forms
 from users.models import User
 
@@ -24,7 +24,7 @@ class UserCreateForm(StyleFormMixin, UserCreationForm):
 class ProfileForm(StyleFormMixin, UserChangeForm):
     class Meta:
         model = User
-        fields = ('email','first_name', 'last_name', 'phone', 'avatar')
+        fields = ('email', 'first_name', 'last_name', 'phone', 'avatar')
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)

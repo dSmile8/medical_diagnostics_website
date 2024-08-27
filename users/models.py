@@ -16,7 +16,7 @@ class User(AbstractUser):
     token = models.CharField(max_length=100, verbose_name='Токен', **NULLABLE)
     is_doctor = models.BooleanField(default=False)
 
-    services = models.ManyToManyField('med.Services', verbose_name='услуги', related_name='services', **NULLABLE)
+    services = models.ManyToManyField('med.Services', verbose_name='услуги', related_name='services')
 
     USERNAME_FIELD = "email"
     REQUIRED_FIELDS = []

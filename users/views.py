@@ -50,12 +50,6 @@ class ProfileView(UserPassesTestMixin, UpdateView):
     template_name = 'users/profile.html'
 
     def test_func(self):
-        # if self.get_object().is_doctor and self.request.user.is_superuser:
-        #     return True
-        # if not self.get_object().is_doctor and self.request.user == self.get_object():
-        #     return True
-        # return self.request.user.is_superuser
-
         if self.request.user == self.get_object() or self.request.user.is_superuser:
             return True
 
@@ -108,12 +102,6 @@ class ProfileDeleteView(UserPassesTestMixin, UpdateView):
     template_name = 'users/profile.html'
 
     def test_func(self):
-        # if self.get_object().is_doctor or self.request.user.is_superuser:
-        #     return True
-        # if not self.get_object().is_doctor and self.request.user == self.get_object():
-        #     return True
-        # return self.request.user.is_superuser
-
         if self.request.user == self.get_object() or self.request.user.is_superuser:
             return True
 
