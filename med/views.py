@@ -214,7 +214,28 @@ class AppointmentUserListView(ListView):
 
 
 class AppointmentArchiveListView(ListView):
-    """"Показ списка прошедших записей на диагностику"""
+    """
+    Display a list of past appointments for diagnosis.
+
+    Attributes:
+    model : Appointment
+        The model class to query for the list of appointments.
+    template_name : str
+        The name of the template to render for this view.
+
+    Methods:
+    get_queryset()
+        Override the default queryset to filter and order past appointments.
+
+    Parameters:
+    None
+
+    Returns:
+    queryset : QuerySet
+        A QuerySet containing all past appointments, ordered by date in descending order and then by service.
+        If the user is not authenticated, the queryset will be None.
+    """
+
     model = Appointment
     template_name = 'med/appointments_archive.html'
 

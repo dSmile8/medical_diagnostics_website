@@ -15,6 +15,20 @@ from users.models import User
 
 
 class UserCreateView(CreateView):
+    """
+        A view for updating user profile.
+
+        Attributes:
+        model: The model to be updated, in this case, User.
+        form_class: The form class for updating the user profile, ProfileForm.
+        success_url: The URL to redirect to after successful profile update.
+        template_name: The template to render for the profile view.
+
+        Methods:
+        test_func: Checks if the current user is the same as the profile being viewed or if the user is a superuser.
+        get_object: Returns the user object for the profile being viewed.
+        """
+
     model = User
     form_class = UserCreateForm
     success_url = reverse_lazy('users:login')
@@ -37,6 +51,16 @@ class UserCreateView(CreateView):
 
 
 def email_verification(request, token):
+    """
+    Verifies the user's email by activating their account.
+
+    Parameters:
+    request (HttpRequest): The request object containing the user's token.
+    token (str): The unique token sent to the user's email for verification.
+
+    Returns:
+    HttpResponseRedirect: Redirects the user to the login page upon successful email verification.
+    """
     user = get_object_or_404(User, token=token)
     user.is_active = True
     user.save()
@@ -44,6 +68,20 @@ def email_verification(request, token):
 
 
 class ProfileView(UserPassesTestMixin, UpdateView):
+    """
+    A view for updating user profile.
+
+    Attributes:
+    model: The model to be updated, in this case, User.
+    form_class: The form class for updating the user profile, ProfileForm.
+    success_url: The URL to redirect to after successful profile update.
+    template_name: The template to render for the profile view.
+
+    Methods:
+    test_func: Checks if the current user is the same as the profile being viewed or if the user is a superuser.
+    get_object: Returns the user object for the profile being viewed.
+    """
+
     model = User
     form_class = ProfileForm
     success_url = reverse_lazy('users:profile')
@@ -58,6 +96,17 @@ class ProfileView(UserPassesTestMixin, UpdateView):
 
 
 def reset_password(request):
+    """
+    Handles the password reset functionality for users.
+
+    Parameters:
+    request (HttpRequest): The request object containing the user's email.
+
+    Returns:
+    HttpResponse: Renders the reset password template with a success message if the email is found and a new password is sent.
+                  Otherwise, renders the reset password template without any message.
+    """
+
     context = {
         "success_message": "Пароль успешно сброшен. Новый пароль был отправлен на ваш адрес электронной почты.",
     }
@@ -82,6 +131,19 @@ def reset_password(request):
 
 
 class DoctorCreateView(UserPassesTestMixin, CreateView):
+    """
+    A view for creating a new doctor user.
+
+    Attributes:
+    model: The model to be created, in this case, User.
+    form_class: The form class for creating a new doctor user, UserCreateForm.
+    success_url: The URL to redirect to after successful doctor user creation.
+
+    Methods:
+    form_valid: Sets the 'is_doctor' and 'is_staff' attributes of the new user to True before saving.
+    test_func: Checks if the current user is a superuser.
+    """
+
     model = User
     form_class = UserCreateForm
     success_url = reverse_lazy('users:login')
@@ -96,6 +158,19 @@ class DoctorCreateView(UserPassesTestMixin, CreateView):
 
 
 class ProfileDeleteView(UserPassesTestMixin, UpdateView):
+    """
+    A view for deleting a user profile.
+
+    Attributes:
+    model: The model to be updated, in this case, User.
+    form_class: The form class for updating the user profile, ProfileForm.
+    success_url: The URL to redirect to after successful profile deletion.
+    template_name: The template to render for the profile view.
+
+    Methods:
+    test_func: Checks if the current user is the same as the profile being viewed or if the user is a superuser.
+    """
+
     model = User
     form_class = ProfileForm
     success_url = reverse_lazy('users:profile')
@@ -107,6 +182,17 @@ class ProfileDeleteView(UserPassesTestMixin, UpdateView):
 
 
 class UsersListView(ListView):
+    """
+    A view for displaying a list of doctor users.
+
+    Attributes:
+    model: The model to be displayed, in this case, User.
+    template_name: The template to render for the list view.
+
+    Methods:
+    get_queryset: Returns a queryset of doctor users.
+    """
+
     model = User
     template_name = 'med/about.html'
 

@@ -1,12 +1,11 @@
 from django.contrib.auth.models import AbstractUser
 from django.db import models
 
-
-
 NULLABLE = {'blank': True, 'null': True}
 
 
 class User(AbstractUser):
+    """User model"""
     username = None
     email = models.EmailField(unique=True, verbose_name='Почта')
     first_name = models.CharField(max_length=20, verbose_name='Имя')
@@ -16,7 +15,7 @@ class User(AbstractUser):
     token = models.CharField(max_length=100, verbose_name='Токен', **NULLABLE)
     is_doctor = models.BooleanField(default=False)
 
-    services = models.ManyToManyField('med.Services', verbose_name='услуги', related_name='services')
+    services = models.ManyToManyField('med.Services', verbose_name='услуги', related_name='services', **NULLABLE)
 
     USERNAME_FIELD = "email"
     REQUIRED_FIELDS = []

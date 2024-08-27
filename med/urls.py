@@ -1,5 +1,7 @@
+from med.views import ServicesListView, ServicesDetailView, ContactsTemplateView, ServicesMakingListView, \
+    AppointmentCreateView, AppointmentUserListView, AppointmentArchiveListView, AppointmentCancelView
 from users.views import UsersListView
-from .views import *
+
 from django.urls import path
 from med.apps import MedConfig
 
